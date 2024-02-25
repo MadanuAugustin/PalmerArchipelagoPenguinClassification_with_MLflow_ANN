@@ -9,3 +9,9 @@ DataIngestion:
   source_URL : 'https://github.com/MadanuAugustin/PalmerArchipelagoPenguinClassification_with_MLflow_ANN/raw/main/Raw_data/archive%20(3).zip'
   local_data_file : artifacts//dataIngestion/raw-data.zip
   unzip_dir : artifacts//dataIngestion
+
+
+DataValidation:
+  root_dir : artifacts//dataValidation
+  unzip_data_dir : artifacts//dataIngestion//
+  STATUS_FILE : artifacts//dataValidation//status.txt
