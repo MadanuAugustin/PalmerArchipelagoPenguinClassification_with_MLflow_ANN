@@ -5,17 +5,16 @@ from src.PalmerArchipelagoPenguinClassification.entity.config_entity import Data
 
 
 class ConfigurationManager:
-    def __init__(self, config_filepath = ConfigFilePath, schema_filepath = SchemaFilePath, params_filepath = ParamsFilePath):
+    def __init__(self, config_filepath = ConfigFilePath, params_filepath = ParamsFilePath, schema_filepath = SchemaFilePath):
         self.config = read_yaml(config_filepath)
-        self.schema = read_yaml(schema_filepath)
         self.params = read_yaml(params_filepath)
-
+        self.schema = read_yaml(schema_filepath)
 
         create_directories([self.config.artifacts_root])
 
-
+    
     def get_data_ingestion_config(self) -> DataIngestionConfig:
-        config = self.config.DataIngestion
+        config = self.config.data_ingestion
 
         create_directories([config.root_dir])
 
@@ -30,7 +29,7 @@ class ConfigurationManager:
     
 
     def get_data_validation_config(self) -> DataValidationConfig:
-        config = self.config.dataValidation
+        config = self.config.data_validation
         schema = self.schema.COLUMNS
 
         create_directories([config.root_dir])
@@ -45,3 +44,6 @@ class ConfigurationManager:
 
 
         return data_validation_config
+    
+
+    def get_data_transformation_config(self) 

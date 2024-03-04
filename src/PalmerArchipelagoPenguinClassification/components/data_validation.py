@@ -1,7 +1,8 @@
 
 from src.PalmerArchipelagoPenguinClassification.entity.config_entity import DataValidationConfig
 import pandas as pd
-
+from exceptionFile.exception import CustomException
+import sys
 
 
 
@@ -36,5 +37,5 @@ class DataValidation:
 
             return validation_status
 
-        except:
-            pass
+        except Exception as e:
+            raise CustomException(e, sys)

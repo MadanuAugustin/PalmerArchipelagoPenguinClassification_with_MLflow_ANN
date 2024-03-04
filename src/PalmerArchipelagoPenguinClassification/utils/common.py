@@ -1,34 +1,44 @@
-from pathlib import Path
-from box import ConfigBox
-import yaml
-from loggerFile.logger import logger
 import os
+import sys
+import yaml
 import json
-from typing import Any
 import joblib
+from box import ConfigBox
+from pathlib import Path
+from typing import Any
+from loggerFile.logger import logger
+from exceptionFile.exception import CustomException
 
 
+# the below method is used for reading the yaml files
 
-def read_yaml(yaml_path : Path) -> ConfigBox:
+
+def read_yaml(path_to_yaml:Path) -> ConfigBox:
     try:
-        with open(yaml_path) as yaml_file:
+        with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logger.info(f'yaml file : {yaml_path} loaded successfully...!')
+            logger.info(f"yaml file : {path_to_yaml} loaded successfully")
             return ConfigBox(content)
+            
+    
+    except Exception as e:
+        raise CustomException(e, sys)
+    
 
-    except:
-        pass
+# the below method is used for creating directories
+    
+def create_directories(path_to_directories : list, verbose = True):
 
-
-def create_directories(directories_path : list, verbose = True):
-    for path in directories_path:
+    for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
 
         if verbose:
-            logger.info(f'created directory at : {path}')
+            logger.info(f'created directory at : {path}...!')
 
 
 
+# the below method is used for saving the json files
+            
 def save_json(path : Path, data : dict):
 
     with open(path, 'w') as f:
@@ -36,37 +46,41 @@ def save_json(path : Path, data : dict):
     logger.info(f'json file saved at : {path}...!')
 
 
-
+# the below method is used for loading the json files
+    
 def load_json(path : Path) -> ConfigBox:
 
     with open(path) as f:
         content = json.load(f)
-
-    logger.info(f'json file loaded successfully at : {path}...!')
+    
+    logger.info(f'json file loaded successfully from : {path}...!')
 
     return ConfigBox(content)
 
 
 
-def save_bin(data : Any, path : Path):
+# the below method is used for saving the joblib/pickle files
 
-    joblib.dump(value = data, filename=path)
+def save_bin(data : Any, path : Path):
+    
+    joblib.dump(value= data, filename=path)
     logger.info(f'joblib file saved at : {path}...!')
 
 
 
-def load_bin(path : Path) -> Any : 
+# the below method is used for loading the joblib/pickle files
+    
+def load_bin(path : Path) -> Any:
+    
     data = joblib.load(path)
-    logger.info(f'joblib file loaded successfully at : {path}')
+    logger.info(f'joblib file loaded from : {path}...!')
     return data
 
 
 
+# the below method is used for getting the size of a file
+
 def get_size(path : Path) -> str:
-
-    file_size = round(os.path.getsize(path)/1024)
-    return f'{file_size} Kb'
-
-
-
-
+    
+    size_in_kb = round(os.path.getsize(path)/1024)
+    return f'{size_in_kb} KB'

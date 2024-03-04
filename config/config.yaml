@@ -2,16 +2,19 @@
 
 artifacts_root : artifacts
 
-
-
-DataIngestion:
-  root_dir : artifacts//dataIngestion
+data_ingestion :
+  root_dir : artifacts/data_ingestion
   source_URL : 'https://github.com/MadanuAugustin/PalmerArchipelagoPenguinClassification_with_MLflow_ANN/raw/main/Raw_data/archive%20(3).zip'
-  local_data_file : artifacts//dataIngestion/raw-data.zip
-  unzip_dir : artifacts//dataIngestion
+  local_data_file : artifacts/data_ingestion/raw-data.zip
+  unzip_dir : artifacts/data_ingestion/
 
 
-DataValidation:
-  root_dir : artifacts//dataValidation
-  unzip_data_dir : artifacts//dataIngestion//
-  STATUS_FILE : artifacts//dataValidation//status.txt
+data_validation:
+  root_dir : artifacts/data_validation
+  unzip_data_dir : artifacts/data_ingestion/penguins_size.csv
+  STATUS_FILE : artifacts/data_validation/status.txt
+
+
+dataTransformation:
+  root_dir : artifacts//data_transformation
+  data_path : artifacts//data_ingestion//penguins_size.csv

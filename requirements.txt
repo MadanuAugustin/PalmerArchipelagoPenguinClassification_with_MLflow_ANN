@@ -12,4 +12,13 @@ types-PyYAML
 Flask
 Flask-Cors
 pathlib
+os
+pandas
+numpy
+typing
+dagshub
+matplotlib
+seaborn
+scikit-learn
+# pip install python-box
 -e . 
